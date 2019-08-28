@@ -1,9 +1,12 @@
 # spark-streaming-tweets-live
 
-This is my experiments while learning spark streaming.
-This is reads a textbook and does some basic transformation
-on the book data such as counting the distince words from 
-the book.
+This is my experiment while learning spark streaming.
+Functionalities realized:
+- Reading book lines and counting distinct words
+- Saving live tweets locally into checkpointing directory
+- Finding the most trending hashtags 
+- Using DStreams and RDDs for more generalized understanding of data 
+- Finding average length of the tweet(s)
 
 Live Twitter data is also consumed with a batch that runs at
 every 1 second of duration. You need following 3 jar files to
