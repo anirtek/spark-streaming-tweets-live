@@ -5,7 +5,7 @@ import org.apache.spark._
 /** Create a RDD of lines from a text file, and keep count of
  *  how often each word appears.
  */
-object wordcount {
+object WordCount {
   
   def main(args: Array[String]) {
       // Set up a SparkContext named WordCount that runs locally using
