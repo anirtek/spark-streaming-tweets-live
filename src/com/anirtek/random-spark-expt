@@ -1,0 +1,80 @@
+datetime					2019-07-21 01:12:56,229
+ClientIpAddress				10.1.198.52
+BucketOwnerUserID			splunk
+Operation					uploadPart
+BucketName					splunk
+ContentAccessorUserId		splunk
+RequestHeaderSize			222
+RequestBodySize				32888016
+ResponseHeaderSize			96
+ResponseBodySize			0
+TotalRequestResponseSize	32888334
+DurationMicrosecs			2964295
+UrlEncodedObjectName		_internal%2Fdb%2F6b%2F6a%2F120%7E4809E384-37B0-4460-9264-56F4F755E988%2FguidSplunk- 
+							4809E384-37B0-4460-9264-56F4F755E988%2Frawdata%2Fjournal.gz?versionId=null?partNumber=2
+HttpStatus					200
+S3RequestId					c28b9e18-5d1b-14a8-8d12-54ab3a911327
+Etag						0226c376de7583e9531c4d39ec1447ab
+ErrorCode					0
+SourceBucketName/UrlEncodedSourceObjectName
+
+
+54.165.199.171 - - [29/Nov/2015:04:32:57 +0000] "GET /travel/ HTTP/1.0" 200 47201 "-" "-"
+
+def apacheLogPattern():Pattern = {
+    val ddd = "\\d{1,3}"                      
+    val ip = s"($ddd\\.$ddd\\.$ddd\\.$ddd)?"  
+    val client = "(\\S+)"                     
+    val user = "(\\S+)"
+    val dateTime = "(\\[.+?\\])"              
+    val request = "\"(.*?)\""                 
+    val status = "(\\d{3})"
+    val bytes = "(\\S+)"                     
+    val referer = "\"(.*?)\""
+    val agent = "\"(.*?)\""
+    val regex = s"$ip $client $user $dateTime $request $status $bytes $referer $agent"
+    Pattern.compile(regex)    
+  }
+
+ip 		66.249.75.168 
+client 	- 
+user 	- 
+date 	[29/Nov/2015:03:50:06 +0000] 
+request "GET /blog/ HTTP/1.1" 
+status 	200 
+bytes 	8083 
+referer "-" 
+agent 	"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+
+spark-submit --master k8s://https://192.168.99.112:8443 --deploy-mode cluster --name RequestInfoLogStreamer --class com.cloudian.spark.main.RequestInfoLogStreamer --conf spark.kubernetes.namespace=kube-system --conf spark.executor.instances=2 --conf spark.kubernetes.container.image.pullPolicy=Always --conf spark.kubernetes.container.image=anirtek/spark-base-image:2.4.3 /Users/atekade/IdeaProjects/scala-spark-streaming/target/scala-2.11/scala-spark-streaming_2.11-1.0.jar
+
+
+spark-submit \
+  --class com.cloudian.spark.main.RequestInfoLogStreamer \
+  --master k8s://https://192.168.99.112:8443 \
+  --deploy-mode cluster \
+  --executor-memory 20G \
+  --num-executors 50 \
+  --conf spark.kubernetes.container.image.pullPolicy=Always \
+  --conf spark.kubernetes.container.image=anirtek/spark-base-image:2.4.3 \
+  /Users/atekade/IdeaProjects/scala-spark-streaming/target/scala-2.11/scala-spark-streaming_2.11-1.0.jar \
+  1000
+
+  bin/spark-submit \
+    --master k8s://https://192.168.99.112:8443 \
+    --deploy-mode cluster \
+    --class com.cloudian.spark.main.RequestInfoLogStreamer \
+    --conf spark.executor.instances=5 \
+    --conf spark.kubernetes.container.image=anirtek/spark-base-image:2.4.3 \
+    --conf spark.kubernetes.
+    local:///Users/atekade/IdeaProjects/scala-spark-streaming/target/scala-2.11/scala-spark-streaming_2.11-1.0.jar
+
+
+    bin/spark-submit \
+    --master k8s://https://192.168.99.115:8443 \
+    --deploy-mode cluster \
+    --name spark-pi \
+    --class org.apache.spark.examples.SparkPi \
+    --conf spark.executor.instances=5 \
+    --conf spark.kubernetes.container.image=spark:v2.4.3 \
+    local:///path/to/examples.jar
